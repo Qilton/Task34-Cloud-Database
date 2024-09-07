@@ -20,7 +20,7 @@ const MyForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    axios.post('http://localhost:3000/form', formData)
+    axios.post('https://task34-cloud-database-server.vercel.app/form', formData)
   };
 
   return (
