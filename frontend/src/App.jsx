@@ -10,7 +10,7 @@ const MyForm = () => {
     email: '',
     message: ''
   });
-useEffect(() => {
+const getUsers=() => {
   axios.get('https://task34-cloud-database-server.vercel.app/save')
     .then(res => {
       
@@ -20,7 +20,7 @@ useEffect(() => {
     .catch(err => {
       console.error('Error fetching data:', err);
     });
-}, [])
+}
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -68,12 +68,14 @@ useEffect(() => {
       </div>
       <button type="submit">Submit</button>
     </form>
+    <button onClick={getUsers}>Get Users</button>
     {users && users.map((user)=>{
       return(
-        <div>
-          <h1>{user.name}</h1>
-          <h1>{user.email}</h1>
-          <h1>{user.message}</h1>
+        <div className='User'>
+          <h1>Name:{user.name}</h1>
+          <h1>Email:{user.email}</h1>
+          <h1>Message:{user.message}</h1>
+          <br />
         </div>
       )
     })}</>
