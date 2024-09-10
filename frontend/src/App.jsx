@@ -1,14 +1,26 @@
 
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+
 import axios from 'axios';
 const MyForm = () => {
+  const [users,setusers]=useState([]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
-
+useEffect(() => {
+  axios.get('https://task34-cloud-database-server.vercel.app/save')
+    .then(res => {
+      
+      console.log(res.data);
+      setusers(res.data);
+    })
+    .catch(err => {
+      console.error('Error fetching data:', err);
+    });
+}, [])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,7 +35,7 @@ const MyForm = () => {
     axios.post('https://task34-cloud-database-server.vercel.app/form', formData)
   };
 
-  return (
+  return <>
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Name:</label>
@@ -56,7 +68,15 @@ const MyForm = () => {
       </div>
       <button type="submit">Submit</button>
     </form>
-  );
+    {users && users.map((user)=>{
+      return(
+        <div>
+          <h1>{user.name}</h1>
+          <h1>{user.email}</h1>
+          <h1>{user.message}</h1>
+        </div>
+      )
+    })}</>
 };
 
 export default MyForm;

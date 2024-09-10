@@ -46,6 +46,11 @@ app.post('/form', async (req, res) => {
   }
 });
 
+app.get("/save",async(req,res)=>{
+  const forms = await Form.find();
+  console.log(forms)
+  res.send(forms);
+})
 // Start the server
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
